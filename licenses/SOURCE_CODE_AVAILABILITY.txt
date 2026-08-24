@@ -1,0 +1,50 @@
+SOURCE CODE AND UPSTREAM AVAILABILITY
+================================================================================
+
+Project: Audion Yandex Portable (audion-yandex-portable)
+
+This file is generated from component profiles. It is an engineering
+record and does not replace review of the applicable license terms.
+
+BUNDLED COMPONENTS WITH SOURCE REFERENCES
+--------------------------------------------------------------------------------
+Component: 7-Zip
+Version/profile: 26.2.0
+Method: upstream_pin
+version: 26.2.0
+url: https://www.7-zip.org/download.html
+
+Component: bidict
+Version/profile: 0.23.1
+Method: upstream_pin
+version: 0.23.1
+url: https://pypi.org/project/bidict/0.23.1/
+
+Component: certifi
+Version/profile: 2026.7.22
+Method: upstream_pin
+version: 2026.7.22
+url: https://pypi.org/project/certifi/2026.7.22/
+
+Component: docutils
+Version/profile: 0.23
+Method: upstream_pin
+version: 0.23
+url: https://pypi.org/project/docutils/0.23/
+
+Component: orjson
+Version/profile: 3.12.0
+Method: upstream_pin
+version: 3.12.0
+url: https://pypi.org/project/orjson/3.12.0/
+
+Component: tqdm
+Version/profile: 4.70.0
+Method: upstream_pin
+version: 4.70.0
+url: https://pypi.org/project/tqdm/4.70.0/
+
+
+OPTIONAL RUNTIME COMPONENTS
+--------------------------------------------------------------------------------
+No optional runtime source records registered.

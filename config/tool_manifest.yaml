@@ -1,0 +1,566 @@
+tool:
+  id: audion_yandex_portable
+  name: "Audion Yandex Portable"
+  category: "Browsers"
+  version: "1.0.0"
+
+paths:
+  input: "input"
+  output: "output"
+  logs: "logs"
+  report: "report"
+  workspace: "workspace"
+  config: "config"
+  release: "release"
+
+ui:
+  title: "Audion Yandex Portable"
+  host: "127.0.0.1"
+  port: 8080
+  native: false
+  reload: false
+  open_browser: false
+
+operations:
+  - id: yandex_build
+    title: "Build"
+    title_ru: "Собрать"
+    description: "A folder you can run from anywhere."
+    description_ru: "Папка, которую можно запускать откуда угодно."
+    tooltip: "Downloads the full Yandex installer together with the Chrome++ wrapper, unpacks both and publishes a ready build in the Target folder. Nothing is installed into Windows and no administrator rights are needed: the profile lives in Data next to the browser, so the whole folder can be copied to a flash drive and carried away."
+    tooltip_ru: "Скачивает полный дистрибутив Яндекс.Браузера вместе с обёрткой Chrome++, распаковывает оба и публикует готовую сборку в папке назначения. В Windows ничего не устанавливается и права администратора не нужны: профиль лежит в папке Data рядом с браузером, поэтому всю папку можно скопировать на флешку и унести с собой."
+    service: "system_core.services.yandex_portable_service:build_portable"
+    kind: "safe"
+
+  - id: yandex_update
+    title: "Update"
+    title_ru: "Обновить"
+    description: "Fresh version, your profile untouched."
+    description_ru: "Свежая версия, ваш профиль на месте."
+    tooltip: "Only the browser itself is replaced, right inside the build the Source points at. Data and Cache are left alone, so bookmarks, passwords and extensions survive the update. Versions are compared first, and the 200 MB installer is downloaded only when the published version differs."
+    tooltip_ru: "Меняется только сам браузер, прямо внутри сборки, на которую указывает «Источник». Data и Cache не трогаются, поэтому закладки, пароли и расширения переживают обновление. Сначала сравниваются версии, и 200 МБ качаются, только если опубликованная версия отличается."
+    service: "system_core.services.yandex_portable_service:update_portable"
+    kind: "safe"
+
+  - id: yandex_check
+    title: "Check"
+    title_ru: "Проверить"
+    description: "What is published, and what you already have."
+    description_ru: "Что вышло и что уже стоит."
+    tooltip: "Shows the version Yandex publishes today next to the version of the build on disk, so you can see whether an update is worth a 200 MB download. The version is read out of the download redirect and the release page; nothing is downloaded."
+    tooltip_ru: "Показывает версию, которую Яндекс выложил сегодня, рядом с версией сборки на диске - видно, стоит ли обновление 200 МБ загрузки. Версия читается из редиректа загрузки и со страницы выпуска, ничего не скачивается."
+    service: "system_core.services.yandex_portable_service:check_updates"
+    kind: "safe"
+
+  - id: chrome_plus_update
+    title: "Chrome++"
+    title_ru: "Chrome++"
+    description: "Refresh the wrapper alone."
+    description_ru: "Обновить одну обёртку."
+    tooltip: "Chrome++ is the wrapper that keeps the profile next to the browser and makes the build portable. It is released more often than the browser itself, so it can be refreshed on its own: only `version.dll` and `chrome++.ini` are replaced, and the browser and the profile are left untouched."
+    tooltip_ru: "Chrome++ - обёртка, которая держит профиль рядом с браузером и делает сборку портативной. Выходит она чаще самого браузера, поэтому её можно обновить отдельно: меняются только `version.dll` и `chrome++.ini`, браузер и профиль остаются нетронутыми."
+    service: "system_core.services.yandex_portable_service:update_chrome_plus"
+    kind: "safe"
+
+  - id: install_7zip
+    title: "7-Zip"
+    title_ru: "7-Zip"
+    description: "The unpacker every build needs."
+    description_ru: "Распаковщик, без которого не собрать."
+    tooltip: "The browser is never installed here - its installer is unpacked instead, twice, and that is what 7-Zip does. This checks for the unpacker and downloads a portable copy into the project folder when it is missing. Nothing is installed into Windows, and the copy is deleted by the project cleanup because it ages quickly."
+    tooltip_ru: "Браузер здесь не устанавливается - вместо этого распаковывается его установщик, причём дважды, и делает это 7-Zip. Проверяет наличие распаковщика и, если его нет, кладёт портативную копию в папку проекта. В Windows ничего не устанавливается, а копия удаляется чисткой проекта, потому что быстро устаревает."
+    service: "system_core.services.yandex_portable_service:install_portable_7zip"
+    kind: "safe"
+
+  - id: defender_exclusion_remove
+    title: "Defender: remove exclusion"
+    title_ru: "Defender: убрать исключение"
+    description: "Take back the temporary build exclusion."
+    description_ru: "Забрать временное исключение сборки."
+    tooltip: "A build normally excludes its output folder from Windows Defender only while it runs and removes the exclusion the moment it finishes. This is the safety net for the rare case where a build was killed hard and the exclusion was left behind: it removes exactly that output-folder exclusion, plus the build in input if an update left one. Windows asks for UAC. It reads nothing else and changes no other Defender setting; removing an exclusion that is not there is not an error."
+    tooltip_ru: "Сборка обычно исключает свою папку output из Windows Defender только на время работы и снимает исключение сразу после. Это подстраховка на редкий случай, когда сборку убили жёстко и исключение осталось: снимается ровно оно, для папки output, плюс сборка в input, если её оставило обновление. Windows спросит UAC. Больше ничего не читается и никакие другие настройки Defender не трогаются; снять исключение, которого нет, - не ошибка."
+    service: "system_core.services.yandex_portable_service:defender_exclusion_remove"
+    kind: "dangerous"
+
+x-build-fields: &build_fields
+  fields:
+    - id: portable_engine
+      type: "radio"
+      group: "format"
+      label: "Portability"
+      label_ru: "Портативность"
+      default: "chrome_plus"
+      hint: "Which library sits beside the browser."
+      hint_ru: "Какая библиотека лежит рядом с браузером."
+      tooltip: "What keeps the profile inside the build folder. Chrome++ is the wrapper this program started with, widely used and well known - and well known to antivirus heuristics too, which regularly take its `version.dll` for a threat. The proxy library is another `version.dll`, by neyrostalker: it does the same job, blocks writes to the registry outright instead of wiping them afterwards, and Microsoft does not flag it."
+      tooltip_ru: "Чем профиль удерживается внутри папки сборки. Chrome++ - обёртка, с которой эта программа начиналась: распространённая и известная, в том числе эвристикам антивирусов, которые регулярно принимают её `version.dll` за угрозу. Прокси библиотека - другая `version.dll`, авторства neyrostalker: делает ту же работу, запись в реестр не подчищает, а сразу блокирует, и Microsoft на неё не ругается."
+      options:
+        - value: "chrome_plus"
+          label: "Chrome++"
+          label_ru: "Chrome++"
+        - value: "proxy_library"
+          label: "Proxy library"
+          label_ru: "Прокси библиотека"
+
+    - id: chrome_plus_arch
+      type: "radio"
+      group: "format"
+      label: "Wrapper architecture"
+      label_ru: "Разрядность обёртки"
+      hint: "Yandex ships x64 for Windows."
+      hint_ru: "Яндекс отдаёт для Windows x64."
+      tooltip: "Chrome++ is the small wrapper that makes the build portable: it keeps the profile next to the browser instead of in Windows. It has to match the browser, and Yandex publishes x64 for Windows. A mismatch produces no error message - the wrapper is simply ignored, and the build quietly stops being portable."
+      tooltip_ru: "Chrome++ - маленькая обёртка, которая делает сборку портативной: держит профиль рядом с браузером, а не в Windows. Она должна совпадать с браузером, а Яндекс выкладывает для Windows x64. При несовпадении ошибки не будет: обёртка просто не загрузится, и сборка молча перестанет быть портативной."
+      default: "x64"
+      options:
+        - value: "x64"
+          label: "x64"
+          label_ru: "x64"
+        - value: "x86"
+          label: "x86"
+          label_ru: "x86"
+        - value: "arm64"
+          label: "ARM64"
+          label_ru: "ARM64"
+
+    - id: wipe_registry_on_exit
+      type: "checkbox"
+      group: "options"
+      label: "Leave no traces in Windows"
+      label_ru: "Не оставлять следов в Windows"
+      hint: "Only where the browser is not installed."
+      hint_ru: "Только там, где браузер не установлен."
+      tooltip: "A portable build still leaves counters and small settings in its own branch of the Windows registry. With this on, the browser wipes that branch when it exits, so the computer is left as it was found. The catch: the branch is shared with an installed Yandex Browser, and wiping it takes the installed copy's settings along."
+      tooltip_ru: "Портативная сборка всё равно оставляет счётчики и мелкие настройки в своей ветке реестра Windows. С этой галкой браузер стирает ветку при выходе, и компьютер остаётся таким, каким был. Подвох: ветка общая с установленным Яндекс.Браузером, и вместе с ней пропадут его настройки."
+      default: true
+
+    - id: guard_defender
+      type: "checkbox"
+      group: "options"
+      label: "Work around Defender while building"
+      label_ru: "Обойти Defender на время сборки"
+      hint: "Only when Defender is running."
+      hint_ru: "Только когда Defender включён."
+      tooltip: "Chrome++'s version.dll is a routine Windows Defender false positive: real-time protection can grab it mid-build, and the packaging step then dies with an unhelpful error. With this on, the output folder is excluded from Defender only for the length of the build and put back the moment it finishes - Windows asks for UAC once, and the exclusion is removed even if the build fails. It is a no-op where Defender is not running, so it never asks for anything on such machines. This changes nothing for whoever receives the build: their Defender may still flag version.dll, which is fixed by submitting it to Microsoft as a false positive."
+      tooltip_ru: "version.dll от Chrome++ - обычное ложное срабатывание Windows Defender: защита в реальном времени может забрать файл посреди сборки, и тогда упаковка падает с невнятной ошибкой. С этой галкой папка output исключается из Defender только на время сборки и возвращается сразу после - Windows один раз спросит UAC, а исключение снимается даже если сборка не удалась. Там, где Defender не запущен, галка ничего не делает и ничего не спрашивает. На получателя сборки это не влияет: у него Defender всё ещё может ругаться на version.dll - это лечится отправкой файла в Microsoft как ложного срабатывания."
+      default: true
+
+    - id: disable_updater
+      type: "checkbox"
+      group: "options"
+      label: "Remove the built-in updater"
+      label_ru: "Убрать встроенное обновление"
+      hint: "Otherwise it installs itself into Windows."
+      hint_ru: "Иначе оно установит себя в Windows."
+      tooltip: "Yandex Browser ships its own updater, `service_update.exe`. Left in place it would eventually pull a real installation into the system, past the portable folder - and the build would stop being portable without saying a word. Updates then come from this program instead: `Update` replaces the browser and keeps the profile."
+      tooltip_ru: "В Яндекс.Браузере есть своё обновление, `service_update.exe`. Если его оставить, оно рано или поздно утянет настоящую установку в систему мимо портативной папки - и сборка молча перестанет быть портативной. Обновления после этого приходят из этой программы: «Обновить» меняет браузер и сохраняет профиль."
+      default: true
+
+    - id: package_archive
+      type: "checkbox"
+      group: "output"
+      label: "Pack into an archive"
+      label_ru: "Упаковать в архив"
+      hint: "One file instead of a folder."
+      hint_ru: "Один файл вместо папки."
+      tooltip: "Off publishes a ready-to-run folder: open it and start the browser. On packs the build into an archive instead - a single file, easier to put on a flash drive, upload or send to a colleague, who unpacks it and runs it exactly the same way."
+      tooltip_ru: "Выключено - публикуется готовая папка: открыл и запустил браузер. Включено - сборка пакуется в архив: один файл, его проще положить на флешку, выложить или отправить коллеге, а тот распакует и запустит точно так же."
+      default: false
+
+    - id: archive_format
+      type: "radio"
+      group: "output"
+      label: "Archive format"
+      label_ru: "Формат архива"
+      hint: "ZIP anywhere, 7Z smaller."
+      hint_ru: "ZIP везде, 7Z меньше."
+      tooltip: "ZIP opens on any Windows computer with no extra program at all, which matters when the build goes to someone else. 7Z packs the browser noticeably smaller - useful for a slow upload - but whoever receives it has to have 7-Zip installed."
+      tooltip_ru: "ZIP открывается на любом компьютере с Windows вообще без лишних программ - это важно, когда сборка уезжает к другому человеку. 7Z ужимает браузер заметно сильнее, что полезно при медленной выгрузке, но у получателя должен быть установлен 7-Zip."
+      default: "zip"
+      options:
+        - value: "zip"
+          label: "ZIP"
+          label_ru: "ZIP"
+        - value: "7z"
+          label: "7Z"
+          label_ru: "7Z"
+
+    - id: yandex_download_url
+      type: "text"
+      section: "advanced"
+      group: "source"
+      label: "Yandex download URL"
+      label_ru: "Ссылка загрузки Яндекса"
+      hint: "Leave it as it is."
+      hint_ru: "Не трогайте."
+      tooltip: "The address the full installer is taken from. The published version is read out of the redirect this address answers with, so a wrong address means either an error or a build made from something else. Change it only if Yandex moves the file."
+      tooltip_ru: "Адрес, откуда берётся полный дистрибутив. Опубликованная версия читается из редиректа, которым отвечает этот адрес, поэтому неверный адрес - это или ошибка, или сборка из чего-то постороннего. Меняйте, только если Яндекс перенёс файл."
+      default: "https://browser.yandex.ru/download?full=1"
+
+    - id: keep_temp
+      type: "checkbox"
+      section: "advanced"
+      group: "run"
+      label: "Keep working files"
+      label_ru: "Оставить рабочие файлы"
+      hint: "For finding out what went wrong."
+      hint_ru: "Чтобы разобраться, что пошло не так."
+      tooltip: "The download and the unpacked installer normally disappear from the workspace folder as soon as the build is published, because they are large. Keep them when a build failed and the reason has to be found: the half-finished result is then still on disk and can be looked at."
+      tooltip_ru: "Загрузка и распакованный установщик обычно исчезают из папки workspace сразу после публикации сборки - они большие. Оставьте их, если сборка не удалась и нужно понять причину: тогда недоделанный результат останется на диске, и его можно будет посмотреть."
+      default: false
+
+operation_groups:
+  - id: install
+    title: "Install"
+    title_ru: "Установка"
+    description: "A new build, taken from the Target folder."
+    description_ru: "Новая сборка, забрать из папки назначения."
+    tooltip: "The full installer is unpacked rather than run, so nothing reaches Windows and no administrator rights are needed. The finished folder appears in the Target folder, ready to be copied onto a flash drive or handed over as it is."
+    tooltip_ru: "Полный дистрибутив распаковывается, а не запускается: в Windows ничего не попадает, права администратора не нужны. Готовая папка появляется в папке назначения - её можно скопировать на флешку или отдать как есть."
+    children:
+      - id: yandex_build
+        title: "Build"
+        title_ru: "Собрать"
+        description: "A folder you can run from anywhere."
+        description_ru: "Папка, которую можно запускать откуда угодно."
+        tooltip: "Downloads the browser and its wrapper and publishes a ready build into the Target folder: about 200 MB of download, roughly 500 MB once unpacked. The installer is only unpacked, so nothing is installed into Windows."
+        tooltip_ru: "Скачивает браузер и обёртку и кладёт готовую сборку в папку назначения: около 200 МБ загрузки и примерно 500 МБ в распакованном виде. Установщик только распаковывается, поэтому в Windows ничего не устанавливается."
+        service: "system_core.services.yandex_portable_service:build_portable"
+        kind: "safe"
+        <<: *build_fields
+
+  - id: update
+    title: "Update"
+    title_ru: "Обновление"
+    description: "Update the build in place."
+    description_ru: "Обновить сборку на её месте."
+    tooltip: "Point Source at the folder with the build - the flash drive, the network share, wherever it lives - and it is updated right there. Only the browser is replaced; the profile with bookmarks, passwords and extensions stays untouched."
+    tooltip_ru: "Укажите в «Источнике» папку со сборкой - на флешке, в сетевой папке, где угодно, - и она обновится прямо там. Меняется только браузер, профиль с закладками, паролями и расширениями остаётся нетронутым."
+    children:
+      - id: yandex_check
+        title: "Check"
+        title_ru: "Проверить"
+        description: "Is there anything to update."
+        description_ru: "Есть ли что обновлять."
+        tooltip: "Compares the version published today with the one in the build and downloads nothing: one HEAD request for the browser and one release lookup for the wrapper. Worth running before an update, because the installer itself is 200 MB."
+        tooltip_ru: "Сравнивает версию, выложенную сегодня, с версией сборки и ничего не скачивает: один HEAD-запрос для браузера и один запрос выпуска для обёртки. Стоит запускать перед обновлением - сам дистрибутив весит 200 МБ."
+        service: "system_core.services.yandex_portable_service:check_updates"
+        kind: "safe"
+        fields:
+          - id: portable_engine
+            type: "radio"
+            group: "format"
+            label: "Portability"
+            label_ru: "Портативность"
+            default: "chrome_plus"
+            hint: "Which wrapper to compare against."
+            hint_ru: "С какой обёрткой сверять."
+            tooltip: "The check compares two numbers: the browser's own version and the version of the library beside it. Pick the wrapper the build carries."
+            tooltip_ru: "Проверка сравнивает два числа: версию самого браузера и версию библиотеки рядом с ним. Выберите ту обёртку, которая лежит в сборке."
+            options:
+              - value: "chrome_plus"
+                label: "Chrome++"
+                label_ru: "Chrome++"
+              - value: "proxy_library"
+                label: "Proxy library"
+                label_ru: "Прокси библиотека"
+
+
+      - id: yandex_update
+        title: "Update"
+        title_ru: "Обновить"
+        description: "Fresh version, your profile untouched."
+        description_ru: "Свежая версия, ваш профиль на месте."
+        tooltip: "Replaces the browser inside the build and leaves the profile alone, so bookmarks, passwords and extensions stay. A build that already carries the published version stops without downloading anything - use `Rebuild without a new version` when it has to be replaced regardless."
+        tooltip_ru: "Меняет в сборке браузер, не трогая профиль: закладки, пароли и расширения остаются. Сборка с уже опубликованной версией останавливается, ничего не скачивая, - если её всё равно нужно заменить, включите «Пересобрать без новой версии»."
+        service: "system_core.services.yandex_portable_service:update_portable"
+        kind: "safe"
+        fields:
+          - id: portable_engine
+            type: "radio"
+            group: "format"
+            label: "Portability"
+            label_ru: "Портативность"
+            default: "chrome_plus"
+            hint: "Which library sits beside the browser."
+            hint_ru: "Какая библиотека лежит рядом с браузером."
+            tooltip: "What keeps the profile inside the build folder, and what the update puts back. Chrome++ is the wrapper this program started with, widely used and well known - and well known to antivirus heuristics too, which regularly take its `version.dll` for a threat. The proxy library is another `version.dll`, by neyrostalker: it does the same job, blocks writes to the registry outright instead of wiping them afterwards, and Microsoft does not flag it."
+            tooltip_ru: "Чем профиль удерживается внутри папки сборки и что обновление положит обратно. Chrome++ - обёртка, с которой эта программа начиналась: распространённая и известная, в том числе эвристикам антивирусов, которые регулярно принимают её `version.dll` за угрозу. Прокси библиотека - другая `version.dll`, авторства neyrostalker: делает ту же работу, запись в реестр не подчищает, а сразу блокирует, и Microsoft на неё не ругается."
+            options:
+              - value: "chrome_plus"
+                label: "Chrome++"
+                label_ru: "Chrome++"
+              - value: "proxy_library"
+                label: "Proxy library"
+                label_ru: "Прокси библиотека"
+
+          - id: force_update
+            type: "checkbox"
+            group: "run"
+            label: "Rebuild without a new version"
+            label_ru: "Пересобрать без новой версии"
+            hint: "For a damaged build."
+            hint_ru: "Для повреждённой сборки."
+            tooltip: "Normally a build that already carries the published version is skipped and nothing is downloaded - and here that saves a 200 MB download. Turn this on for a build whose browser is damaged or was assembled elsewhere: it is then downloaded and replaced regardless of the version, and the profile still stays untouched."
+            tooltip_ru: "Обычно сборка с уже опубликованной версией пропускается и ничего не скачивается - здесь это экономит 200 МБ загрузки. Включите для сборки, у которой браузер повреждён или собран не здесь: тогда он будет скачан и заменён независимо от версии, а профиль всё равно останется нетронутым."
+            default: false
+
+          - id: chrome_plus_arch
+            type: "radio"
+            group: "format"
+            label: "Wrapper architecture"
+            label_ru: "Разрядность обёртки"
+            hint: "Yandex ships x64 for Windows."
+            hint_ru: "Яндекс отдаёт для Windows x64."
+            tooltip: "Chrome++ is the small wrapper that makes the build portable: it keeps the profile next to the browser instead of in Windows. It has to match the browser, and Yandex publishes x64 for Windows. A mismatch produces no error message - the wrapper is simply ignored, and the build quietly stops being portable."
+            tooltip_ru: "Chrome++ - маленькая обёртка, которая делает сборку портативной: держит профиль рядом с браузером, а не в Windows. Она должна совпадать с браузером, а Яндекс выкладывает для Windows x64. При несовпадении ошибки не будет: обёртка просто не загрузится, и сборка молча перестанет быть портативной."
+            default: "x64"
+            options:
+              - value: "x64"
+                label: "x64"
+                label_ru: "x64"
+              - value: "x86"
+                label: "x86"
+                label_ru: "x86"
+              - value: "arm64"
+                label: "ARM64"
+                label_ru: "ARM64"
+
+          - id: wipe_registry_on_exit
+            type: "checkbox"
+            group: "options"
+            label: "Leave no traces in Windows"
+            label_ru: "Не оставлять следов в Windows"
+            hint: "Only where the browser is not installed."
+            hint_ru: "Только там, где браузер не установлен."
+            tooltip: "A portable build still leaves counters and small settings in its own branch of the Windows registry. With this on, the browser wipes that branch when it exits, so the computer is left as it was found. The catch: the branch is shared with an installed Yandex Browser, and wiping it takes the installed copy's settings along."
+            tooltip_ru: "Портативная сборка всё равно оставляет счётчики и мелкие настройки в своей ветке реестра Windows. С этой галкой браузер стирает ветку при выходе, и компьютер остаётся таким, каким был. Подвох: ветка общая с установленным Яндекс.Браузером, и вместе с ней пропадут его настройки."
+            default: true
+
+          - id: guard_defender
+            type: "checkbox"
+            group: "options"
+            label: "Work around Defender while updating"
+            label_ru: "Обойти Defender на время обновления"
+            hint: "Only when Defender is running."
+            hint_ru: "Только когда Defender включён."
+            tooltip: "Chrome++'s version.dll is a routine Windows Defender false positive: real-time protection can grab it mid-update - both in the workspace and inside the build being updated - and the step then dies with an unhelpful error. With this on, both folders are excluded from Defender only for the length of the update and put back the moment it finishes; Windows asks for UAC once, and the exclusion is removed even if the update fails. It is a no-op where Defender is not running."
+            tooltip_ru: "version.dll от Chrome++ - обычное ложное срабатывание Windows Defender: защита в реальном времени может забрать файл посреди обновления - и во временной папке, и внутри обновляемой сборки, - и тогда шаг падает с невнятной ошибкой. С этой галкой обе папки исключаются из Defender только на время обновления и возвращаются сразу после; Windows один раз спросит UAC, а исключение снимается даже если обновление не удалось. Там, где Defender не запущен, галка ничего не делает."
+            default: true
+
+          - id: disable_updater
+            type: "checkbox"
+            group: "options"
+            label: "Remove the built-in updater"
+            label_ru: "Убрать встроенное обновление"
+            hint: "Otherwise it installs itself into Windows."
+            hint_ru: "Иначе оно установит себя в Windows."
+            tooltip: "Yandex Browser ships its own updater, `service_update.exe`. Left in place it would eventually pull a real installation into the system, past the portable folder - and the build would stop being portable without saying a word. Updates then come from this program instead: `Update` replaces the browser and keeps the profile."
+            tooltip_ru: "В Яндекс.Браузере есть своё обновление, `service_update.exe`. Если его оставить, оно рано или поздно утянет настоящую установку в систему мимо портативной папки - и сборка молча перестанет быть портативной. Обновления после этого приходят из этой программы: «Обновить» меняет браузер и сохраняет профиль."
+            default: true
+
+          - id: package_archive
+            type: "checkbox"
+            group: "output"
+            label: "Pack into an archive"
+            label_ru: "Упаковать в архив"
+            hint: "One file instead of a folder."
+            hint_ru: "Один файл вместо папки."
+            tooltip: "Off publishes a ready-to-run folder: open it and start the browser. On packs the build into an archive instead - a single file, easier to put on a flash drive, upload or send to a colleague, who unpacks it and runs it exactly the same way."
+            tooltip_ru: "Выключено - публикуется готовая папка: открыл и запустил браузер. Включено - сборка пакуется в архив: один файл, его проще положить на флешку, выложить или отправить коллеге, а тот распакует и запустит точно так же."
+            default: false
+
+          - id: archive_format
+            type: "radio"
+            group: "output"
+            label: "Archive format"
+            label_ru: "Формат архива"
+            hint: "ZIP anywhere, 7Z smaller."
+            hint_ru: "ZIP везде, 7Z меньше."
+            tooltip: "ZIP opens on any Windows computer with no extra program at all, which matters when the build goes to someone else. 7Z packs the browser noticeably smaller - useful for a slow upload - but whoever receives it has to have 7-Zip installed."
+            tooltip_ru: "ZIP открывается на любом компьютере с Windows вообще без лишних программ - это важно, когда сборка уезжает к другому человеку. 7Z ужимает браузер заметно сильнее, что полезно при медленной выгрузке, но у получателя должен быть установлен 7-Zip."
+            default: "zip"
+            options:
+              - value: "zip"
+                label: "ZIP"
+                label_ru: "ZIP"
+              - value: "7z"
+                label: "7Z"
+                label_ru: "7Z"
+
+          - id: yandex_download_url
+            type: "text"
+            section: "advanced"
+            group: "source"
+            label: "Yandex download URL"
+            label_ru: "Ссылка загрузки Яндекса"
+            hint: "Leave it as it is."
+            hint_ru: "Не трогайте."
+            tooltip: "The address the full installer is taken from. The published version is read out of the redirect this address answers with, so a wrong address means either an error or a build made from something else. Change it only if Yandex moves the file."
+            tooltip_ru: "Адрес, откуда берётся полный дистрибутив. Опубликованная версия читается из редиректа, которым отвечает этот адрес, поэтому неверный адрес - это или ошибка, или сборка из чего-то постороннего. Меняйте, только если Яндекс перенёс файл."
+            default: "https://browser.yandex.ru/download?full=1"
+
+          - id: keep_temp
+            type: "checkbox"
+            section: "advanced"
+            group: "run"
+            label: "Keep working files"
+            label_ru: "Оставить рабочие файлы"
+            hint: "For finding out what went wrong."
+            hint_ru: "Чтобы разобраться, что пошло не так."
+            tooltip: "The download and the unpacked installer normally disappear from the workspace folder as soon as the build is published, because they are large. Keep them when a build failed and the reason has to be found: the half-finished result is then still on disk and can be looked at."
+            tooltip_ru: "Загрузка и распакованный установщик обычно исчезают из папки workspace сразу после публикации сборки - они большие. Оставьте их, если сборка не удалась и нужно понять причину: тогда недоделанный результат останется на диске, и его можно будет посмотреть."
+            default: false
+
+      - id: chrome_plus_update
+        title: "Chrome++"
+        title_ru: "Chrome++"
+        description: "Refresh the wrapper alone."
+        description_ru: "Обновить одну обёртку."
+        tooltip: "Taken from the latest release: the API first, the release page when the API has no quota left."
+        tooltip_ru: "Берётся из последнего выпуска: сначала API, при исчерпанной квоте - страница выпуска."
+        service: "system_core.services.yandex_portable_service:update_chrome_plus"
+        kind: "safe"
+        fields:
+          - id: chrome_plus_arch
+            type: "radio"
+            group: "format"
+            label: "Wrapper architecture"
+            label_ru: "Разрядность обёртки"
+            hint: "Yandex ships x64 for Windows."
+            hint_ru: "Яндекс отдаёт для Windows x64."
+            tooltip: "Chrome++ is the small wrapper that makes the build portable: it keeps the profile next to the browser instead of in Windows. It has to match the browser, and Yandex publishes x64 for Windows. A mismatch produces no error message - the wrapper is simply ignored, and the build quietly stops being portable."
+            tooltip_ru: "Chrome++ - маленькая обёртка, которая делает сборку портативной: держит профиль рядом с браузером, а не в Windows. Она должна совпадать с браузером, а Яндекс выкладывает для Windows x64. При несовпадении ошибки не будет: обёртка просто не загрузится, и сборка молча перестанет быть портативной."
+            default: "x64"
+            options:
+              - value: "x64"
+                label: "x64"
+                label_ru: "x64"
+              - value: "x86"
+                label: "x86"
+                label_ru: "x86"
+              - value: "arm64"
+                label: "ARM64"
+                label_ru: "ARM64"
+
+          - id: wipe_registry_on_exit
+            type: "checkbox"
+            group: "options"
+            label: "Leave no traces in Windows"
+            label_ru: "Не оставлять следов в Windows"
+            hint: "Only where the browser is not installed."
+            hint_ru: "Только там, где браузер не установлен."
+            tooltip: "A portable build still leaves counters and small settings in its own branch of the Windows registry. With this on, the browser wipes that branch when it exits, so the computer is left as it was found. The catch: the branch is shared with an installed Yandex Browser, and wiping it takes the installed copy's settings along."
+            tooltip_ru: "Портативная сборка всё равно оставляет счётчики и мелкие настройки в своей ветке реестра Windows. С этой галкой браузер стирает ветку при выходе, и компьютер остаётся таким, каким был. Подвох: ветка общая с установленным Яндекс.Браузером, и вместе с ней пропадут его настройки."
+            default: true
+
+          - id: guard_defender
+            type: "checkbox"
+            group: "options"
+            label: "Work around Defender while updating"
+            label_ru: "Обойти Defender на время обновления"
+            hint: "Only when Defender is running."
+            hint_ru: "Только когда Defender включён."
+            tooltip: "Chrome++'s version.dll is a routine Windows Defender false positive: real-time protection can grab it mid-update - both in the workspace and inside the build being updated - and the step then dies with an unhelpful error. With this on, both folders are excluded from Defender only for the length of the update and put back the moment it finishes; Windows asks for UAC once, and the exclusion is removed even if the update fails. It is a no-op where Defender is not running."
+            tooltip_ru: "version.dll от Chrome++ - обычное ложное срабатывание Windows Defender: защита в реальном времени может забрать файл посреди обновления - и во временной папке, и внутри обновляемой сборки, - и тогда шаг падает с невнятной ошибкой. С этой галкой обе папки исключаются из Defender только на время обновления и возвращаются сразу после; Windows один раз спросит UAC, а исключение снимается даже если обновление не удалось. Там, где Defender не запущен, галка ничего не делает."
+            default: true
+      - id: proxy_library_update
+        title: "Proxy library"
+        title_ru: "Прокси библиотека"
+        description: "Swap the wrapper for the other one."
+        description_ru: "Поменять обёртку на другую."
+        tooltip: "Puts the proxy library's `version.dll` and its `version.ini` into the build, replacing Chrome++ if that is what was there, and leaves the browser and the profile untouched. The release comes from GitFlic, where the library is published with its Delphi sources. This is also the way to move an existing build off Chrome++ when an antivirus keeps taking its wrapper for a threat."
+        tooltip_ru: "Кладёт в сборку `version.dll` прокси библиотеки и её `version.ini`, заменяя Chrome++, если стоял он, и не трогая браузер и профиль. Выпуск берётся с GitFlic, где библиотека опубликована вместе с исходниками на Delphi. Этим же способом переводят готовую сборку с Chrome++, если антивирус упорно принимает его обёртку за угрозу."
+        service: "system_core.services.yandex_portable_service:update_proxy_library"
+        kind: "safe"
+        fields:
+          - id: chrome_plus_arch
+            type: "radio"
+            group: "format"
+            label: "Wrapper architecture"
+            label_ru: "Разрядность обёртки"
+            default: "x64"
+            hint: "Yandex ships x64 for Windows."
+            hint_ru: "Яндекс отдаёт для Windows x64."
+            tooltip: "The library has to match the browser it sits next to, and Yandex publishes x64 for Windows. The proxy library ships x86 and x64 only - ARM64 is covered by Chrome++ alone."
+            tooltip_ru: "Библиотека должна совпадать по разрядности с браузером, рядом с которым лежит, а Яндекс выкладывает для Windows x64. Прокси библиотека выпускается только x86 и x64: ARM64 закрывает лишь Chrome++."
+            options:
+              - value: "x64"
+                label: "x64"
+                label_ru: "x64"
+              - value: "x86"
+                label: "x86"
+                label_ru: "x86"
+
+          - id: wipe_registry_on_exit
+            type: "checkbox"
+            group: "options"
+            label: "Leave no traces in Windows"
+            label_ru: "Не оставлять следов в Windows"
+            default: false
+            hint: "Only where Yandex Browser is not installed."
+            hint_ru: "Только там, где Яндекс.Браузер не установлен."
+            tooltip: "The proxy library does not wipe the registry branch on exit - it blocks the writes outright, so nothing accumulates to be wiped. The cost is that `Set as default browser` stops working, which a portable build has no business doing anyway. The branch is shared with an installed Yandex Browser, so leave this off where one is present."
+            tooltip_ru: "Прокси библиотека не стирает ветку реестра при выходе - она сразу блокирует запись, поэтому копиться нечему. Плата за это - перестаёт работать «Сделать браузером по умолчанию», что портативной сборке и не нужно. Ветка общая с установленным Яндекс.Браузером, поэтому там, где он есть, галку лучше не включать."
+
+          - id: guard_defender
+            type: "checkbox"
+            group: "options"
+            label: "Work around Defender while updating"
+            label_ru: "Обойти Defender на время обновления"
+            default: true
+            hint: "Only when Defender is running."
+            hint_ru: "Только когда Defender включён."
+            tooltip: "Microsoft does not flag the proxy library, but the guard is kept here too: any real-time scanner can grab a freshly written `version.dll` mid-update and the step then dies with an unhelpful error. With this on, the folders are excluded from Defender only for the length of the update and put back the moment it finishes. It is a no-op where Defender is not running."
+            tooltip_ru: "Microsoft на прокси библиотеку не ругается, но защита оставлена и здесь: любой сканер реального времени может забрать только что записанную `version.dll` посреди обновления, и тогда шаг падает с невнятной ошибкой. С этой галкой папки исключаются из Defender только на время обновления и возвращаются сразу после. Там, где Defender не запущен, галка ничего не делает."
+
+
+
+  - id: service_procedures
+    title: "Service"
+    title_ru: "Обслуживание"
+    description: "Parts with their own schedule."
+    description_ru: "Части сборки, которые обновляются своим чередом."
+    tooltip: "The wrapper is released more often than the browser, and the unpacker is what every build depends on - both are refreshed here on their own, without rebuilding anything."
+    tooltip_ru: "Обёртка выходит чаще браузера, а от распаковщика зависит любая сборка - оба обновляются здесь отдельно, ничего не пересобирая."
+    children:
+      - id: install_7zip
+        title: "7-Zip"
+        title_ru: "7-Zip"
+        description: "The unpacker every build needs."
+        description_ru: "Распаковщик, без которого не собрать."
+        tooltip: "Checks the unpacker and puts a portable copy into the project folder when it is missing. Without it neither the installer resource nor the browser archive inside it can be opened, so no build can be made."
+        tooltip_ru: "Проверяет распаковщик и, если его нет, кладёт портативную копию в папку проекта. Без него не открыть ни ресурс установщика, ни архив браузера внутри него, а значит, ни одна сборка не получится."
+        service: "system_core.services.yandex_portable_service:install_portable_7zip"
+        kind: "safe"
+
+      - id: defender_exclusion_remove
+        title: "Defender: remove exclusion"
+        title_ru: "Defender: убрать исключение"
+        description: "Take back the temporary build exclusion."
+        description_ru: "Забрать временное исключение сборки."
+        tooltip: "A build normally excludes its output folder from Windows Defender only while it runs and removes the exclusion the moment it finishes. This is the safety net for the rare case where a build was killed hard and the exclusion was left behind: it removes exactly that output-folder exclusion, plus the build in input if an update left one. Windows asks for UAC. It reads nothing else and changes no other Defender setting; removing an exclusion that is not there is not an error."
+        tooltip_ru: "Сборка обычно исключает свою папку output из Windows Defender только на время работы и снимает исключение сразу после. Это подстраховка на редкий случай, когда сборку убили жёстко и исключение осталось: снимается ровно оно, для папки output, плюс сборка в input, если её оставило обновление. Windows спросит UAC. Больше ничего не читается и никакие другие настройки Defender не трогаются; снять исключение, которого нет, - не ошибка."
+        service: "system_core.services.yandex_portable_service:defender_exclusion_remove"
+        kind: "dangerous"
+
+maintenance_operations:
+  - id: cleanup_input_output
+    title: "Clear I/O"
+    title_ru: "Очистить I/O"
+    description: "Empty the input and output folders."
+    description_ru: "Очистить папки input и output."
+    tooltip: "Deletes what lies inside the program's own input and output folders, keeping the folders themselves, and asks for confirmation first. Builds you have already copied elsewhere are not affected - only the working copies here."
+    tooltip_ru: "Удаляет то, что лежит внутри собственных папок программы input и output, сами папки остаются; сначала спрашивает подтверждение. Сборок, которые вы уже скопировали в другое место, это не касается - только рабочих копий здесь."
+    service: "system_core.services.sample_service:cleanup_input_output"
+    kind: "dangerous"
+
+  - id: cleanup_workspace
+    title: "Clear workspace"
+    title_ru: "Очистить workspace"
+    description: "Throw away the working leftovers."
+    description_ru: "Выбросить рабочие остатки."
+    tooltip: "Deletes downloads and unpacked installers from the workspace folder after confirmation. Finished builds, settings and logs are not touched - this is the leftover working material, which is large and of no use once a build is published."
+    tooltip_ru: "Удаляет из папки workspace загрузки и распакованные установщики, спросив подтверждение. Готовые сборки, настройки и журналы не трогает: это остатки рабочего материала, который занимает много места и не нужен после публикации сборки."
+    service: "system_core.services.sample_service:cleanup_workspace"
+    kind: "dangerous"

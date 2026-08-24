@@ -1,0 +1,36 @@
+{
+  "schema": "audion.build_licenses.pack_manifest.v1",
+  "generated_utc": "2026-08-24T17:49:51Z",
+  "run_id": "20260824T174944Z_audion-yandex-portable_9a3cfef9",
+  "project_id": "audion-yandex-portable",
+  "project_name": "Audion Yandex Portable",
+  "scan_root": "S:\\Release\\Audion Yandex Portable",
+  "output_dir": "S:\\Release\\Audion Yandex Portable\\licenses",
+  "files": [
+    {
+      "name": "THIRD_PARTY_NOTICES.txt",
+      "sha256": "4f20f1eead1000c2cbbafe5188e4fc360cd6ae68f13790768fcbd308c8f74550",
+      "size": 436548
+    },
+    {
+      "name": "SOURCE_CODE_AVAILABILITY.txt",
+      "sha256": "9c3e164b2e0cc3ad85f3b5419ba8c397f6105977c40b13a2af5687efbf202618",
+      "size": 1346
+    },
+    {
+      "name": "COMPONENTS.json",
+      "sha256": "9263210eaf0296fd4a9d007ec3a8163f295b15c49134ea8824efce3cab47c24a",
+      "size": 131323
+    },
+    {
+      "name": "_records.json",
+      "sha256": "a107e95e35dd81e7895b40e9e8258756ff6ffb1ea53880c299b19fc4f22a0afc",
+      "size": 32064
+    },
+    {
+      "name": "LICENSE_SCAN_REPORT.md",
+      "sha256": "eff1f1b99b4c3026215a641e7dae1b3f9a2f85eeadce012d4f1df0d748100eef",
+      "size": 4995
+    }
+  ]
+}

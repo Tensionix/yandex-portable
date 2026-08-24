@@ -1,0 +1,7 @@
+project:
+  name: "Audion Yandex Portable"
+  version: "1.0.0"
+
+safety:
+  cleanup_managed_workspace_only: true
+  never_delete_original_inputs: true

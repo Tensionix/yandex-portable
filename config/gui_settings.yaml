@@ -1,0 +1,9 @@
+﻿gui:
+  # Change to "en" for public GitHub builds.
+  language: "en"
+  theme: "code_dark"
+  emoji: false
+  allow_runtime_switching: true
+  advanced_open: false
+  source_path: ""
+  destination_path: ""

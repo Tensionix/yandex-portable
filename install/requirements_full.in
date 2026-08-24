@@ -1,0 +1,18 @@
+# Project dependencies
+# Add project-specific packages above the GUI layer.
+
+# GUI layer
+nicegui
+pyyaml
+rich
+tqdm
+setuptools
+wheel
+packaging
+pywebview
+pytest
+
+# Test and audit layer
+# NiceGUI's headless `user` fixture parses the rendered page with BeautifulSoup;
+# the Screen fixture would need selenium and is deliberately not used.
+beautifulsoup4

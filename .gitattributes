@@ -1,0 +1,7 @@
+* text=auto eol=lf
+.gitattributes text eol=lf
+*.cmd text eol=crlf
+*.CMD text eol=crlf
+*.bat text eol=crlf
+*.sh text eol=lf
+system_core/wsl_assets/** text eol=lf

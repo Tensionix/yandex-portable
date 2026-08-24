@@ -1,0 +1,262 @@
+[
+  {
+    "name": "Python Embedded",
+    "version": "3.12.x",
+    "license": "PSF License Version 2 and bundled third-party notices",
+    "source": "baseline-runtime",
+    "whenPathExists": [
+      "runtime/python.exe"
+    ],
+    "files": [
+      "files/LICENSE-Python-Embedded.txt"
+    ]
+  },
+  {
+    "name": "PowerShell",
+    "version": "portable",
+    "license": "MIT",
+    "source": "baseline-runtime",
+    "whenPathExists": [
+      "system_core/powershell/pwsh.exe"
+    ],
+    "files": [
+      "files/LICENSE-PowerShell.txt"
+    ]
+  },
+  {
+    "name": "fzf",
+    "version": "bundled",
+    "license": "MIT",
+    "source": "baseline-tool",
+    "whenPathExists": [
+      "system_core/fzf.exe"
+    ],
+    "files": [
+      "files/LICENSE-fzf.txt"
+    ]
+  },
+  {
+    "name": "NiceGUI",
+    "version": "present-in-release",
+    "license": "MIT",
+    "source": "baseline-package",
+    "whenPackagePresent": [
+      "nicegui"
+    ],
+    "files": [
+      "files/LICENSE-NiceGUI.txt"
+    ]
+  },
+  {
+    "name": "7-Zip",
+    "version": "present-in-release",
+    "license": "GNU LGPL / BSD / unRAR restriction; see bundled 7-Zip license",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "Tools/7zip/bin/7za.exe",
+      "Tools/7zip/bin/7zr.exe",
+      "Tools/7zip/bin/7z.exe",
+      "runtime/7zip/bin/7za.exe",
+      "runtime/7zip/bin/7zr.exe",
+      "runtime/7zip/bin/7z.exe",
+      "system_core/7zip/bin/7za.exe",
+      "system_core/7zip/bin/7zr.exe",
+      "system_core/7zip/bin/7z.exe"
+    ],
+    "files": [
+      "files/LICENSE-7-Zip.txt"
+    ]
+  },
+  {
+    "name": "FFmpeg",
+    "version": "present-in-release",
+    "license": "REVIEW REQUIRED (LGPL/GPL/nonfree status depends on build flags)",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "Tools/ffmpeg/bin/ffmpeg.exe",
+      "Tools/ffmpeg/ffmpeg.exe",
+      "runtime/ffmpeg/bin/ffmpeg.exe",
+      "runtime/ffmpeg/ffmpeg.exe",
+      "system_core/ffmpeg/bin/ffmpeg.exe",
+      "system_core/ffmpeg/ffmpeg.exe"
+    ],
+    "files": [
+      "files/LICENSE-GPL-3.0.txt",
+      "files/NOTICE-FFmpeg-Build-Review.md"
+    ]
+  },
+  {
+    "name": "yt-dlp",
+    "version": "present-in-release",
+    "license": "Unlicense",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "Tools/yt-dlp/bin/yt-dlp.exe",
+      "Tools/yt-dlp/yt-dlp.exe",
+      "runtime/yt-dlp/yt-dlp.exe",
+      "system_core/yt-dlp/yt-dlp.exe"
+    ],
+    "files": [
+      "files/LICENSE-yt-dlp.txt"
+    ]
+  },
+  {
+    "name": "Tesseract OCR",
+    "version": "present-in-release",
+    "license": "Apache-2.0",
+    "source": "optional-runtime",
+    "whenPathExists": [
+      "runtime/tesseract/tesseract.exe",
+      "runtime/Tesseract-OCR/tesseract.exe",
+      "Tools/tesseract/tesseract.exe",
+      "system_core/tesseract/tesseract.exe"
+    ],
+    "files": [
+      "files/LICENSE-Tesseract-OCR.txt",
+      "files/LICENSE-tessdata_fast.txt"
+    ]
+  },
+  {
+    "name": "Tesseract OCR native dependency DLL bundle",
+    "version": "present-in-release",
+    "license": "REVIEW REQUIRED (mixed native dependency licenses)",
+    "source": "optional-runtime",
+    "whenPathExists": [
+      "runtime/tesseract/tesseract.exe",
+      "runtime/Tesseract-OCR/tesseract.exe",
+      "Tools/tesseract/tesseract.exe",
+      "system_core/tesseract/tesseract.exe"
+    ],
+    "files": [
+      "files/NOTICE-Tesseract-Portable-Dependencies.md"
+    ]
+  },
+  {
+    "name": "LibreOffice",
+    "version": "present-in-release",
+    "license": "MPL-2.0 / LGPL-3.0-or-later and bundled third-party licenses",
+    "source": "optional-runtime",
+    "whenPathExists": [
+      "runtime/libreoffice/program/soffice.exe",
+      "runtime/LibreOffice/program/soffice.exe",
+      "Tools/libreoffice/program/soffice.exe",
+      "Tools/LibreOffice/program/soffice.exe",
+      "system_core/libreoffice/program/soffice.exe",
+      "system_core/LibreOffice/program/soffice.exe",
+      "LibreOfficePortable/App/libreoffice/program/soffice.exe"
+    ],
+    "files": [
+      "files/LICENSE-MPL-2.0.txt",
+      "files/NOTICE-LibreOffice-Bundled-Licenses.md"
+    ]
+  },
+  {
+    "name": "Ghostscript",
+    "version": "present-in-release",
+    "license": "REVIEW REQUIRED (AGPL-3.0-or-commercial)",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "runtime/ghostscript/bin/gswin64c.exe",
+      "runtime/ghostscript/bin/gswin32c.exe",
+      "runtime/ghostscript/bin/gs.exe",
+      "Tools/ghostscript/bin/gswin64c.exe",
+      "Tools/ghostscript/bin/gswin32c.exe",
+      "Tools/ghostscript/bin/gs.exe",
+      "system_core/ghostscript/bin/gswin64c.exe",
+      "system_core/ghostscript/bin/gswin32c.exe",
+      "system_core/ghostscript/bin/gs.exe"
+    ],
+    "files": [
+      "files/LICENSE-AGPL-3.0.txt",
+      "files/NOTICE-Ghostscript-Distribution-Review.md"
+    ]
+  },
+  {
+    "name": "ImageMagick",
+    "version": "present-in-release",
+    "license": "ImageMagick License; delegate libraries require review",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "runtime/imagemagick/magick.exe",
+      "runtime/ImageMagick/magick.exe",
+      "Tools/imagemagick/magick.exe",
+      "Tools/ImageMagick/magick.exe",
+      "system_core/imagemagick/magick.exe",
+      "system_core/ImageMagick/magick.exe"
+    ],
+    "files": [
+      "files/LICENSE-ImageMagick.txt",
+      "files/NOTICE-ImageMagick-Delegate-Review.md"
+    ]
+  },
+  {
+    "name": "Poppler",
+    "version": "present-in-release",
+    "license": "REVIEW REQUIRED (GPL family; exact obligations depend on package)",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "runtime/poppler/bin/pdftoppm.exe",
+      "runtime/poppler/bin/pdfinfo.exe",
+      "runtime/poppler/Library/bin/pdftoppm.exe",
+      "runtime/poppler/Library/bin/pdfinfo.exe",
+      "Tools/poppler/bin/pdftoppm.exe",
+      "Tools/poppler/bin/pdfinfo.exe",
+      "Tools/poppler/Library/bin/pdftoppm.exe",
+      "Tools/poppler/Library/bin/pdfinfo.exe",
+      "system_core/poppler/bin/pdftoppm.exe",
+      "system_core/poppler/bin/pdfinfo.exe",
+      "system_core/poppler/Library/bin/pdftoppm.exe",
+      "system_core/poppler/Library/bin/pdfinfo.exe"
+    ],
+    "files": [
+      "files/LICENSE-GPL-2.0.txt",
+      "files/NOTICE-Poppler-GPL-Build-Review.md"
+    ]
+  },
+  {
+    "name": "QPDF",
+    "version": "present-in-release",
+    "license": "Apache-2.0",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "runtime/qpdf/bin/qpdf.exe",
+      "runtime/qpdf/qpdf.exe",
+      "Tools/qpdf/bin/qpdf.exe",
+      "Tools/qpdf/qpdf.exe",
+      "system_core/qpdf/bin/qpdf.exe",
+      "system_core/qpdf/qpdf.exe"
+    ],
+    "files": [
+      "files/LICENSE-Apache-2.0.txt"
+    ]
+  },
+  {
+    "name": "Pandoc",
+    "version": "present-in-release",
+    "license": "GPL-2.0-or-later",
+    "source": "optional-tool",
+    "whenPathExists": [
+      "runtime/pandoc/pandoc.exe",
+      "Tools/pandoc/pandoc.exe",
+      "system_core/pandoc/pandoc.exe"
+    ],
+    "files": [
+      "files/LICENSE-GPL-2.0.txt",
+      "files/NOTICE-Pandoc-GPL-Review.md"
+    ]
+  },
+  {
+    "name": "Playwright browser payloads",
+    "version": "present-in-release",
+    "license": "REVIEW REQUIRED (browser binary payload notices)",
+    "source": "optional-runtime",
+    "whenPathExists": [
+      "runtime/ms-playwright",
+      "ms-playwright",
+      "install/ms-playwright"
+    ],
+    "files": [
+      "files/NOTICE-Playwright-Browser-Payloads.md"
+    ]
+  }
+]

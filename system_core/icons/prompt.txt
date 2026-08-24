@@ -1,0 +1,24 @@
+{
+  "project": "Audion Yandex Portable",
+  "source_file": "E:\\TOOLS\\Refactor\\exec-46d02b01-5b79-4f3b-9932-5e994fc3c53a.png",
+  "pipeline": "GPT-Image bitmap candidate, normalized to 1024 PNG and 7-size ICO (16/24/32/48/64/128/256, PNG-encoded frames)",
+  "sizes": {
+    "app.png": "1024x1024",
+    "app.ico": [
+      "16x16",
+      "24x24",
+      "32x32",
+      "48x48",
+      "64x64",
+      "128x128",
+      "256x256"
+    ]
+  },
+  "style_rules": [
+    "background #17212B",
+    "maximum 3 objects",
+    "no repeated objects",
+    "no text",
+    "bitmap-first"
+  ]
+}
