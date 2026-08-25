@@ -8,7 +8,7 @@
 - [Direct download](https://audion.dev/get/yandex-portable/1.0.0/Audion_Yandex_Portable_v1.0.0_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/yandex-portable) — every version and how to install
 
-![The program window](docs/screenshot.png)
+<img src="docs/screenshot.png" alt="The program window" width="560">
 
 `SHA-256: 7985b28626da932c89b11d3e268d7c508690b9ceae8dbd4c95d03e4849d7322a`
 
