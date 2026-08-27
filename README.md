@@ -1,14 +1,19 @@
 # Audion Yandex Portable
 
 <!-- audion:release -->
-[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0b6db8?style=flat-square&logo=windows&logoColor=white)](https://audion.dev/downloads/yandex-portable) [![Release](https://img.shields.io/github/v/release/Tensionix/yandex-portable?style=flat-square&label=release&color=e08a63)](https://github.com/Tensionix/yandex-portable/releases/latest) [![Downloads](https://img.shields.io/github/downloads/Tensionix/yandex-portable/total?style=flat-square&label=downloads&color=5fd08a)](https://github.com/Tensionix/yandex-portable/releases) [![License](https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600)](https://github.com/Tensionix/yandex-portable/blob/main/LICENSE)
+<p align="center">
+  <a href="https://audion.dev/downloads/yandex-portable"><img alt="Windows" src="https://img.shields.io/badge/Windows-10%20%7C%2011-0b6db8?style=flat-square&logo=windows&logoColor=white"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/Tensionix/yandex-portable?style=flat-square&label=release&color=e08a63"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/Tensionix/yandex-portable/total?style=flat-square&label=downloads&color=5fd08a"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
+</p>
 
 **Version 1.0.0** · 2026-08-25 · 81.5 MB
 
 - [Direct download](https://audion.dev/get/yandex-portable/1.0.0/Audion_Yandex_Portable_v1.0.0_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/yandex-portable) — every version and how to install
 
-<img src="docs/screenshot.png" alt="The program window" width="560">
+<p align="center"><img src="docs/screenshot.png" alt="The program window" width="560"></p>
 
 `SHA-256: 7985b28626da932c89b11d3e268d7c508690b9ceae8dbd4c95d03e4849d7322a`
 
