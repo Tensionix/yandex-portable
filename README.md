@@ -8,18 +8,18 @@
   <a href="https://github.com/Tensionix/yandex-portable/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
 </p>
 
-**Version 1.0.0** · 2026-08-25 · 81.5 MB
+**Версия 1.0.1** · 2026-09-01 · 82.1 MB
 
-- [Direct download](https://audion.dev/get/yandex-portable/1.0.0/Audion_Yandex_Portable_v1.0.0_Full.zip) — unmetered, no rate limits
-- [Project page](https://audion.dev/downloads/yandex-portable) — every version and how to install
+- [Скачать напрямую](https://dl.audion.dev/yandex-portable/1.0.1/Audion_Yandex_Portable_v1.0.1_Full.zip) — быстрая раздача, без ограничений
+- [Страница проекта](https://audion.dev/downloads/yandex-portable) — все версии и установка
 
-<p align="center"><img src="docs/screenshot.png" alt="The program window" width="560"></p>
+<p align="center"><img src="docs/screenshot.png" alt="Окно программы" width="560"></p>
 
-`SHA-256: 7985b28626da932c89b11d3e268d7c508690b9ceae8dbd4c95d03e4849d7322a`
+`SHA-256: 3475bd814c7afad2e5e02c73d4cc82077b793e7887a201ea0c7cda67a795d906`
 
 ---
 
-An **Audion** tool, published by [Tensionix](https://github.com/Tensionix).
+Проект набора **Audion** — издаёт [Tensionix](https://github.com/Tensionix).
 <!-- /audion:release -->
 
 Builds a portable Yandex Browser, updates a build it is given, and keeps Chrome++
