@@ -1,13 +1,13 @@
 # Audion Build Licenses Scan Report
 
 - Project: **Audion Yandex Portable** (`audion-yandex-portable`)
-- Run: `20260901T044209Z_audion-yandex-portable_fc0d5c21`
-- Project root: `S:\Release\Audion Yandex Portable`
-- Scan root: `S:\Release\Audion Yandex Portable`
-- Output: `S:\Release\Audion Yandex Portable\licenses`
+- Run: `20260901T204257Z_audion-yandex-portable_18a48a7c`
+- Project root: `E:\Releases\Audion Yandex Portable`
+- Scan root: `E:\Releases\Audion Yandex Portable`
+- Output: `E:\Releases\Audion Yandex Portable\licenses`
 - Status: **PASS**
-- Components: 70
-- Bundled: 70
+- Components: 71
+- Bundled: 71
 - Optional runtime: 0
 
 ## Issues
@@ -56,6 +56,7 @@ No issues detected.
 | nicegui | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 3.16.0 | 3.16.0 |
 | orjson | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 3.12.0 | 3.12.0 |
 | packaging | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 26.3 | 26.3 |
+| pip | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 26.2.1 | 26.2.1 |
 | pluggy | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 1.6.0 | 1.6.0 |
 | propcache | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 0.5.2 | 0.5.2 |
 | proxy_tools | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 0.1.0 | 0.1.0 |
