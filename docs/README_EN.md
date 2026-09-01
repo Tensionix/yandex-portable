@@ -1,16 +1,25 @@
 # Audion Yandex Portable
 
 <!-- audion:release -->
-[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0b6db8?style=flat-square&logo=windows&logoColor=white)](https://audion.dev/downloads/yandex-portable) [![Release](https://img.shields.io/github/v/release/Tensionix/audion-yandex-portable?style=flat-square&label=release&color=e08a63)](https://github.com/Tensionix/audion-yandex-portable/releases/latest) [![Downloads](https://img.shields.io/github/downloads/Tensionix/audion-yandex-portable/total?style=flat-square&label=downloads&color=5fd08a)](https://github.com/Tensionix/audion-yandex-portable/releases) [![License](https://img.shields.io/github/license/Tensionix/audion-yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600)](https://github.com/Tensionix/audion-yandex-portable/blob/main/LICENSE)
+<p align="center">
+  <a href="https://audion.dev/downloads/yandex-portable"><img alt="Windows" src="https://img.shields.io/badge/Windows-10%20%7C%2011-0b6db8?style=flat-square&logo=windows&logoColor=white"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/Tensionix/yandex-portable?style=flat-square&label=release&color=e08a63"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/Tensionix/yandex-portable/total?style=flat-square&label=downloads&color=5fd08a"></a>
+  <a href="https://github.com/Tensionix/yandex-portable/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
+</p>
 
-**Version 1.0.0** · 2026-08-23 · 81.4 MB
+**Version 1.0.1** · 2026-09-01 · 82.1 MB
 
-- [Direct download](https://audion.dev/get/yandex-portable/1.0.0/Audion_Yandex_Portable_v1.0.0_Full.zip) — unmetered, no rate limits
+- [Direct download](https://dl.audion.dev/yandex-portable/1.0.1/Audion_Yandex_Portable_v1.0.1_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/yandex-portable) — every version and how to install
 
-![The program window](docs/screenshot.png)
+<p align="center"><img src="docs/screenshot.png" alt="The program window" width="560"></p>
 
-`SHA-256: 80449aa2f3ecae1d20a94ad18531a7e164d6d0325b994833210353d506242894`
+`SHA-256: 3475bd814c7afad2e5e02c73d4cc82077b793e7887a201ea0c7cda67a795d906`
+
+---
+
+An **Audion** tool, published by [Tensionix](https://github.com/Tensionix).
 <!-- /audion:release -->
 
 Builds a portable Yandex Browser, updates a build it is given, and keeps Chrome++
