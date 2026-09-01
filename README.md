@@ -8,14 +8,14 @@
   <a href="https://github.com/Tensionix/yandex-portable/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
 </p>
 
-**Версия 1.0.1** · 2026-09-01 · 82.1 MB
+**Версия 1.0.1** · 2026-09-01 · 3.8 MB
 
-- [Скачать напрямую](https://dl.audion.dev/yandex-portable/1.0.1/Audion_Yandex_Portable_v1.0.1_Full.zip) — быстрая раздача, без ограничений
+- [Скачать напрямую](https://dl.audion.dev/yandex-portable/1.0.1/Audion_Yandex_Portable_v1.0.1.zip) — быстрая раздача, без ограничений
 - [Страница проекта](https://audion.dev/downloads/yandex-portable) — все версии и установка
 
 <p align="center"><img src="docs/screenshot.png" alt="Окно программы" width="560"></p>
 
-`SHA-256: 3475bd814c7afad2e5e02c73d4cc82077b793e7887a201ea0c7cda67a795d906`
+`SHA-256: d677cc9b534fbac9582aaf3b383363431ab9b81ad20cd0ec52cbded315dbae1b`
 
 ---
 
