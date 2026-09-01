@@ -15,10 +15,10 @@ version: 26.2.0
 url: https://www.7-zip.org/download.html
 
 Component: bidict
-Version/profile: 0.23.1
+Version/profile: 0.24.1
 Method: upstream_pin
-version: 0.23.1
-url: https://pypi.org/project/bidict/0.23.1/
+version: 0.24.1
+url: https://pypi.org/project/bidict/0.24.1/
 
 Component: certifi
 Version/profile: 2026.7.22
