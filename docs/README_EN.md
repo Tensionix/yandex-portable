@@ -2,6 +2,16 @@
 
 [Русский](README_RU.md) · [User Guide](USER_GUIDE_EN.md)
 
+**Contents**
+
+- [Why It Exists](#why-it-exists)
+- [How It Works](#how-it-works)
+- [Chrome++](#chrome)
+- [Next](#next)
+- [Technical Reference](#technical-reference)
+  - [What Is in the Build](#what-is-in-the-build)
+  - [Updating](#updating)
+
 Builds a portable Yandex Browser, keeps it updated, and keeps Chrome++ current —
 the add-on the portability itself rests on.
 

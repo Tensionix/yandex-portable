@@ -8,14 +8,14 @@
   <a href="https://github.com/Tensionix/yandex-portable/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/yandex-portable?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
 </p>
 
-**Версия 1.0.2** · 2026-09-04 · 3.9 MB
+**Версия 1.0.2** · 2026-09-04 · 82.3 MB
 
-- [Скачать напрямую](https://dl.audion.dev/yandex-portable/1.0.2/Audion_Yandex_Portable_v1.0.2.zip) — быстрая раздача, без ограничений
+- [Скачать напрямую](https://audion.dev/get/yandex-portable/1.0.2/Audion_Yandex_Portable_v1.0.2_Full.zip) — быстрая раздача, без ограничений
 - [Страница проекта](https://audion.dev/downloads/yandex-portable) — все версии и установка
 
 <p align="center"><img src="docs/screenshot.png" alt="Окно программы" width="560"></p>
 
-`SHA-256: c99b9d03c66199cd38801fa21e5d7d40bc7a3bb0d1d2060f3016d3588f442889`
+`SHA-256: 165347f492587e65a6f46bd8840f841fbb3fcf366e92f9c26f0b35f7de267122`
 
 ---
 
@@ -23,61 +23,70 @@
 <!-- /audion:release -->
 
 
-[Русский](README_RU.md) · [User Guide](USER_GUIDE_EN.md)
+[English](Docs/README_EN.md) · [Руководство](Docs/USER_GUIDE_RU.md)
 
-Builds a portable Yandex Browser, keeps it updated, and keeps Chrome++ current —
-the add-on the portability itself rests on.
+**Содержание**
 
-## Why It Exists
+- [Зачем это сделано](#зачем-это-сделано)
+- [Как это устроено](#как-это-устроено)
+- [Chrome++](#chrome)
+- [Дальше](#дальше)
+- [Техническая часть](#техническая-часть)
+  - [Что в сборке](#что-в-сборке)
+  - [Обновление](#обновление)
 
-Yandex Browser has no portable build, and there are two reasons to want one — the
-second not obvious.
+Собирает портативный Яндекс.Браузер, обновляет собранное и держит в свежем виде
+Chrome++, на котором держится сама портативность.
 
-**First: the browser is separated from the system and travels as a folder.** The
-ordinary benefit of portability.
+## Зачем это сделано
 
-**Second: the Russian state root certificates are already embedded in it.**
-Russian state portals issue certificates absent from the Windows store; other
-browsers will not open those sites without them, so the roots have to be
-installed into the system. Yandex Browser carries them itself — which means a
-portable build opens such sites **without touching the system certificate store
-at all**.
+У Яндекс.Браузера портативной сборки нет, а причин её иметь — две, и вторая
+неочевидна.
 
-Nothing is installed into Windows: the distribution is unpacked, not run.
+**Первая: браузер отделяется от системы и переносится папкой.** Обычная выгода
+портативности.
 
-## How It Works
+**Вторая: сертификаты НУЦ Минцифры у него уже встроены.** Российские
+государственные порталы выдают сертификаты, которых нет в хранилище Windows;
+другие браузеры без них эти сайты не открывают, и приходится ставить корневые
+сертификаты в систему. Яндекс.Браузер несёт их с собой — значит портативная
+сборка открывает такие сайты **не трогая системное хранилище вообще**.
 
-The full distribution is an executable with exactly one archive of the browser in
-its resources. The program extracts it and lays it out into a build folder: the
-browser, the profile, a launcher.
+В Windows при этом ничего не устанавливается: дистрибутив распаковывается, а не
+запускается.
+
+## Как это устроено
+
+Полный дистрибутив — исполняемый файл, в ресурсах которого лежит ровно один
+архив с браузером. Программа достаёт его и раскладывает в папку сборки: браузер,
+профиль, файл запуска.
 
 ## Chrome++
 
-The build's portability rests on it, so it is updated alongside the browser
-itself.
+На нём держится портативность сборки, поэтому он обновляется наравне с самим
+браузером.
 
-One thing is worth knowing: **a build can fail during packing with a file access
-error** — and that is neither the disk nor a corrupt archive, but the antivirus
-inspecting a freshly written executable. Covered in
-`tools\CHROME_PLUS_AND_DEFENDER.md` (Russian).
+Про него стоит знать одно: **сборка может упасть на упаковке с ошибкой доступа
+к файлу** — и это не диск и не битый архив, а антивирус, разбирающий свежий
+исполняемый файл. Разобрано в `tools\CHROME_PLUS_AND_DEFENDER.md`.
 
-## Next
+## Дальше
 
-* [User Guide](USER_GUIDE_EN.md) — step by step.
-* [Checklist](SMOKE_TEST_RU.md) — what is run before a release (Russian).
-* `tools\CHROME_PLUS_AND_DEFENDER.md` — Chrome++ and the antivirus.
-* `tools\DECISIONS_EN.md` — decisions taken.
+* [Руководство](Docs/USER_GUIDE_RU.md) — работа по шагам.
+* [Проверки](Docs/SMOKE_TEST_RU.md) — что прогоняется перед выпуском.
+* `tools\CHROME_PLUS_AND_DEFENDER.md` — Chrome++ и антивирус.
+* `tools\DECISIONS_EN.md` — принятые решения.
 
 ---
 
-## Technical Reference
+## Техническая часть
 
-### What Is in the Build
+### Что в сборке
 
-The browser, a profile with bookmarks and extensions, a launcher, and a record of
-which versions are inside. It travels whole and leaves no trace in the system.
+Браузер, профиль с закладками и расширениями, файл запуска и запись о том, какие
+версии внутри. Переносится целиком, следов в системе не оставляет.
 
-### Updating
+### Обновление
 
-What the vendor released is compared against what is in the build. Only what
-changed is updated; the profile is left alone.
+Сверяется, что вышло у разработчика, с тем, что в сборке. Обновляется только
+изменившееся, профиль не трогается.

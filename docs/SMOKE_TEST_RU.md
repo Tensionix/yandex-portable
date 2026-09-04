@@ -1,5 +1,26 @@
 # Smoke-Test Checklist
 
+**Содержание**
+
+- [Runtime Imports](#runtime-imports)
+- [Syntax](#syntax)
+- [Doctor](#doctor)
+- [CMD Encoding](#cmd-encoding)
+- [SH LF](#sh-lf)
+- [Cleanup / Init Check](#cleanup--init-check)
+- [Project Upgrade Check](#project-upgrade-check)
+- [NiceGUI Smoke](#nicegui-smoke)
+- [Server Check](#server-check)
+- [Window Check](#window-check)
+- [Picker Check](#picker-check)
+- [Layout Check](#layout-check)
+- [Visual Smoke Screenshots](#visual-smoke-screenshots)
+- [Nested Menu And Fields Check](#nested-menu-and-fields-check)
+- [PowerShell / CLI Window Check](#powershell--cli-window-check)
+- [Long Operation / Navigation Check](#long-operation--navigation-check)
+- [System Operations / Preflight Check](#system-operations--preflight-check)
+- [NiceGUI ProcessPool Fallback](#nicegui-processpool-fallback)
+
 ## Runtime Imports
 
 ```text

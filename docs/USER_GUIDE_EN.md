@@ -1,5 +1,14 @@
 # Audion Yandex Portable - user guide
 
+**Contents**
+
+- [How the window works](#how-the-window-works)
+- [First run](#first-run)
+- [What is inside the build](#what-is-inside-the-build)
+- [Updating](#updating)
+- [Build settings](#build-settings)
+- [Worth knowing](#worth-knowing)
+
 This program makes a portable Yandex Browser: one that lives in a folder, starts
 from anywhere, and is never installed into Windows. Everything the browser
 remembers about you — bookmarks, tabs, passwords — stays inside that same folder.
