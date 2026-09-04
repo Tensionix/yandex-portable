@@ -23,7 +23,7 @@
 <!-- /audion:release -->
 
 
-[English](Docs/README_EN.md) · [Руководство](Docs/USER_GUIDE_RU.md)
+[English](docs/README_EN.md) · [Руководство](docs/USER_GUIDE_RU.md)
 
 **Содержание**
 
@@ -72,8 +72,8 @@ Chrome++, на котором держится сама портативност
 
 ## Дальше
 
-* [Руководство](Docs/USER_GUIDE_RU.md) — работа по шагам.
-* [Проверки](Docs/SMOKE_TEST_RU.md) — что прогоняется перед выпуском.
+* [Руководство](docs/USER_GUIDE_RU.md) — работа по шагам.
+* [Проверки](docs/SMOKE_TEST_RU.md) — что прогоняется перед выпуском.
 * `tools\CHROME_PLUS_AND_DEFENDER.md` — Chrome++ и антивирус.
 * `tools\DECISIONS_EN.md` — принятые решения.
 
