@@ -1,36 +1,36 @@
 {
   "schema": "audion.build_licenses.pack_manifest.v1",
-  "generated_utc": "2026-09-04T02:37:00Z",
-  "run_id": "20260904T023653Z_audion-yandex-portable_12d03e15",
+  "generated_utc": "2026-09-18T03:03:08Z",
+  "run_id": "20260918T030300Z_audion-yandex-portable_e488a82a",
   "project_id": "audion-yandex-portable",
   "project_name": "Audion Yandex Portable",
-  "scan_root": "S:\\Release\\Audion Yandex Portable",
-  "output_dir": "S:\\Release\\Audion Yandex Portable\\licenses",
+  "scan_root": "S:\\Releases\\Audion Yandex Portable",
+  "output_dir": "S:\\Releases\\Audion Yandex Portable\\licenses",
   "files": [
     {
       "name": "THIRD_PARTY_NOTICES.txt",
-      "sha256": "b1bba89dba7c688f74cb7ec1da2a740e1526fe93dfc586b3e3a1aaceead5db8b",
-      "size": 387747
+      "sha256": "acf48b1c207400b0f7cf09bc1d89871a5070db6f7411746d3a5e9ed3ea529235",
+      "size": 436569
     },
     {
       "name": "SOURCE_CODE_AVAILABILITY.txt",
-      "sha256": "39104a35d4bb6c0b83de1f1b1905f0a27cbf8ce5f3fd4140816ae371eb4f3b78",
+      "sha256": "c1cb87b0f1fb3547466ef38dae454325782a190da97200d6994102fd45183939",
       "size": 1346
     },
     {
       "name": "COMPONENTS.json",
-      "sha256": "b5659ac98004bb839d84ebe9a95e68296615918220e3bd34896aec3722f0d81b",
-      "size": 121857
+      "sha256": "946c3f3b2dcde917d9ec3d423a82abdb20503a997398263726cab6005c9d6a3d",
+      "size": 132799
     },
     {
       "name": "_records.json",
-      "sha256": "d450db3521066f722bb03cad7070ffb7e1593e03926dc80665c2f36b85af50bc",
-      "size": 29999
+      "sha256": "cc3a2bed22dd6e3e656fde579cfbf479465842d253c51c7bac39687bd2f3a4c9",
+      "size": 32474
     },
     {
       "name": "LICENSE_SCAN_REPORT.md",
-      "sha256": "1159e273ecdce021147e3b2d4e1f8112dfd3cc3a37a082d57d71374bc0e4d6e9",
-      "size": 5878
+      "sha256": "47cad4b1483bb1f9046351a5b0d13e56689721112add79eb1961f8b67dc97edb",
+      "size": 6026
     }
   ]
 }

@@ -9,9 +9,9 @@ record and does not replace review of the applicable license terms.
 BUNDLED COMPONENTS WITH SOURCE REFERENCES
 --------------------------------------------------------------------------------
 Component: 7-Zip
-Version/profile: 26.2.0
+Version/profile: 26.3.0
 Method: upstream_pin
-version: 26.2.0
+version: 26.3.0
 url: https://www.7-zip.org/download.html
 
 Component: bidict
@@ -39,10 +39,10 @@ version: 3.12.0
 url: https://pypi.org/project/orjson/3.12.0/
 
 Component: tqdm
-Version/profile: 4.70.0
+Version/profile: 4.70.1
 Method: upstream_pin
-version: 4.70.0
-url: https://pypi.org/project/tqdm/4.70.0/
+version: 4.70.1
+url: https://pypi.org/project/tqdm/4.70.1/
 
 
 OPTIONAL RUNTIME COMPONENTS
